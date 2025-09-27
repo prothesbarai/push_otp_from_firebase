@@ -84,13 +84,13 @@ class _PhoneNumberState extends State<PhoneNumber> {
                                 setState(() {isLoading = true;});
                                 /// >>>  Collect Your Phone Number And Get OTP From Fire Base......
                                 await FirebaseAuth.instance.verifyPhoneNumber(
-                                    verificationCompleted: (credential){},
+                                    verificationCompleted: (credential){}, // Here Auto OTP detect and Verify By Firebase, You Can Directly Login here
                                     verificationFailed: (error){},
                                     codeSent: (String verificationId, int? resendToken){
                                       Navigator.push(context, MaterialPageRoute(builder: (context) => OtpPage(verificationId: verificationId),));
                                       setState(() {isLoading = false;});
                                     },
-                                    codeAutoRetrievalTimeout: (otp){},
+                                    codeAutoRetrievalTimeout: (timeOut){},
                                     phoneNumber: "+880$phnNumber"
                                 );
 
