@@ -15,8 +15,8 @@ class _OtpPageState extends State<OtpPage> {
   final otpController = TextEditingController();
 
 
-  void navigateHome(){
-    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => HomePage()), (Route<dynamic> route) => false,);
+  void navigateHome(String userId,String userPhoneNumber){
+    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => HomePage(userId: userId,userPhoneNumber: userPhoneNumber,)), (Route<dynamic> route) => false,);
   }
 
   @override
@@ -69,7 +69,17 @@ class _OtpPageState extends State<OtpPage> {
 
                             /// >>> Get Otp From Firebase And Collect User Field OTP and match here then Navigate Target Page
                             PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: widget.verificationId, smsCode: otp);
-                            await FirebaseAuth.instance.signInWithCredential(credential).then((value)=>{navigateHome()});
+
+                            /// >>> Firebase Create a User ID Auto we Get it..
+                            UserCredential userCredential = await FirebaseAuth.instance.signInWithCredential(credential);
+
+                            /// >>> Firebase Create a User ID Auto we Get it..
+                            String uid = userCredential.user!.uid;
+                            String? userPhoneNumber = userCredential.user!.phoneNumber;
+
+
+                            // Navigate to Home or Target Page
+                            navigateHome(uid,"$userPhoneNumber");
 
                           }catch(err){
                             debugPrint("Firebase Error $err");
