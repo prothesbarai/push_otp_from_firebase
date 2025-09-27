@@ -35,4 +35,4 @@ git clone https://github.com/prothesbarai/push_otp_from_firebase.git
 ```
 
 ## 📸 Screenshots
-<p align="center"> <img src="assets/images/img.png" width="25%" alt="Screenshot 1"> <img src="assets/images/img_1.png" width="25%" alt="Screenshot 2"> <img src="assets/images/img_2.png" width="25%" alt="Screenshot 3"> <img src="assets/images/img_3.png" width="25%" alt="Screenshot 4"> </p>
+<p align="center"> <img src="assets/images/img.png" width="50%" alt="Screenshot 1"> <img src="assets/images/img_1.png" width="25%" alt="Screenshot 2"> <img src="assets/images/img_2.png" width="25%" alt="Screenshot 3"> <img src="assets/images/img_3.png" width="25%" alt="Screenshot 4"> </p>
