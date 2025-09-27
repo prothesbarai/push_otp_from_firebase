@@ -1,8 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:sendotpfromfirebase/pages/home_page.dart';
 
 class OtpPage extends StatefulWidget {
-  final String otp;
-  const OtpPage({super.key,required this.otp});
+  final String verificationId;
+  const OtpPage({super.key,required this.verificationId});
 
   @override
   State<OtpPage> createState() => _OtpPageState();
@@ -12,6 +14,10 @@ class _OtpPageState extends State<OtpPage> {
   final _formKey = GlobalKey<FormState>();
   final otpController = TextEditingController();
 
+
+  void navigateHome(){
+    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context) => HomePage()), (Route<dynamic> route) => false,);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +44,7 @@ class _OtpPageState extends State<OtpPage> {
                       focusedBorder: OutlineInputBorder(borderSide: BorderSide(color: Colors.blue)),
                     ),
                     keyboardType: TextInputType.number,
-                    maxLength: 4,
+                    maxLength: 6,
                     cursorColor: Colors.blue,
                     controller: otpController,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -46,8 +52,8 @@ class _OtpPageState extends State<OtpPage> {
                       if(value == null || value.trim().isEmpty){
                         return "Field is Empty";
                       }
-                      if (value.length != 4) {
-                        return "Valid 4 Digit OTP";
+                      if (value.length != 6) {
+                        return "Valid 6 Digit OTP";
                       }
                       return null;
                     },
@@ -60,6 +66,10 @@ class _OtpPageState extends State<OtpPage> {
                           String otp = otpController.text.trim();
 
                           try{
+
+                            /// >>> Get Otp From Firebase And Collect User Field OTP and match here then Navigate Target Page
+                            PhoneAuthCredential credential = PhoneAuthProvider.credential(verificationId: widget.verificationId, smsCode: otp);
+                            await FirebaseAuth.instance.signInWithCredential(credential).then((value)=>{navigateHome()});
 
                           }catch(err){
                             debugPrint("Firebase Error $err");

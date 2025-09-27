@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:sendotpfromfirebase/pages/authentication/otp_page.dart';
 
 class PhoneNumber extends StatefulWidget {
   const PhoneNumber({super.key});
@@ -45,13 +47,26 @@ class _PhoneNumberState extends State<PhoneNumber> {
                     if(value == null || value.trim().isEmpty){
                       return "Field is Empty";
                     }
+
+                    if (!RegExp(r'^[0-9]+$').hasMatch(value)){
+                      return "Invalid Number";
+                    }
+
+                    value = value.trim().replaceAll('+', '');
+
+
+                    // Now check if the number is exactly 11 digits
                     if (value.length != 11) {
                       return "11 Digit Phone Number";
                     }
+
+
                     final pattern = RegExp(r'^(01[3-9])[0-9]{8}$');
                     if (!pattern.hasMatch(value)) {
                       return "Invalid Number";
                     }
+
+
                     return null;
                   },
                 ),
@@ -63,6 +78,16 @@ class _PhoneNumberState extends State<PhoneNumber> {
                         String phnNumber = phnNumberController.text.trim();
 
                         try{
+
+                          await FirebaseAuth.instance.verifyPhoneNumber(
+                              verificationCompleted: (credential){}, 
+                              verificationFailed: (error){}, 
+                              codeSent: (String verificationId, int? resendToken){
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => OtpPage(verificationId: verificationId),));
+                              }, 
+                              codeAutoRetrievalTimeout: (otp){},
+                              phoneNumber: "+880$phnNumber"
+                          );
 
                         }catch(err){
                           debugPrint("Firebase Error $err");
