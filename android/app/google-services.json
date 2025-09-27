@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "750517139337",
+    "project_id": "sent-otp-from-firebase",
+    "storage_bucket": "sent-otp-from-firebase.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:750517139337:android:ec1a03b2de9869dee71358",
+        "android_client_info": {
+          "package_name": "com.example.sendotpfromfirebase"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAkbU0YMYnjCNfgGWDmoiOAzX8y96Tg4qk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
